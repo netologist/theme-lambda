@@ -4,10 +4,10 @@ function fish_right_prompt
   if test $exit_code -ne 0
     set_color red
   else
-    set_color -o black
+    set_color 666666
   end
   printf '%d' $exit_code
-  set_color -o black
+  set_color 666666
   printf ' < %s' (date +%H:%M:%S)
   set_color normal
 end
@@ -22,7 +22,7 @@ function __tmux_prompt
       set pane (_get_tmux_window)
    end
 
-  set_color -o black
+  set_color 666666
   if test -z $pane
     echo -n ""
   else
