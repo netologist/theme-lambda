@@ -1,5 +1,5 @@
 ## lambda
 
-![lambda theme](screen-shot.png)
+![lambda theme](screenshot.png)
 
 	omf install lambda
