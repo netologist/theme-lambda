@@ -11,6 +11,10 @@
 <img src="https://raw.githubusercontent.com/hasanozgan/theme-lambda/master/screenshot.png">
 </p>
 
+###### Added VirtualEnv Support
+![preview](http://i.imgur.com/fWurs47.png)
+
+
 #### Install
 
 #### [Fisherman]
