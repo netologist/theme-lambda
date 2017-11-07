@@ -56,7 +56,12 @@ function fish_prompt
   echo
 
   # Line 2
-  echo -n $white'╰─'$__fish_prompt_char $normal
+  echo -n $white'╰'
+  # support for virtual env name
+  if set -q VIRTUAL_ENV
+      echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
+  end
+  echo -n $white'─'$__fish_prompt_char $normal
 end
 
 
