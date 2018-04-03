@@ -3,12 +3,11 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-007EC7.svg?style=flat-square)](/LICENSE)
 [![Fish Shell Version](https://img.shields.io/badge/fish-v2.2.0-007EC7.svg?style=flat-square)](http://fishshell.com)
 
-
 ## Screenshot
 
 ![fish-shell-lambda-theme](https://raw.githubusercontent.com/ipatch/theme-lambda/master/lib/fish-shell-lambda-theme.png)
 
-###### Added VirtualEnv Support
+## Virtualenv
 
 ![fish-shell-lambda-theme-virtualenv](https://raw.githubusercontent.com/ipatch/theme-lambda/master/lib/virtualenv.png)
 
