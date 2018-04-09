@@ -12,7 +12,7 @@ function fish_prompt
   set -l blue (set_color blue)
   set -l limegreen (set_color 87ff00)
   set -l purple (set_color af5fff)
-  set -l red (set_color red)
+  set -l red (set_color e70e0e)
 
   # Configure __fish_git_prompt
   set -g __fish_git_prompt_char_stateseparator ' '
