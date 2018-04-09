@@ -21,12 +21,6 @@ set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 
 ## Install
 
-### [Fisherman](https://github.com/fisherman/fisherman)
-
-```fish
-fisher i lambda
-```
-
 ### [Oh-My-Fish](https://github.com/oh-my-fish/oh-my-fish)
 
 ```fish
