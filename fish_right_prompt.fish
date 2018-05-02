@@ -1,5 +1,5 @@
 function fish_right_prompt 
-	set -l exit_code $status
+  set -l exit_code $status
   __tmux_prompt
   if test $exit_code -ne 0
     set_color red
@@ -52,5 +52,3 @@ function _is_multiplexed
   end
   echo $multiplexer
 end
-
-
