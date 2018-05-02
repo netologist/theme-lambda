@@ -1,5 +1,6 @@
 function fish_right_prompt 
   set -l exit_code $status
+  set -l cmd_duration $CMD_DURATION
   __tmux_prompt
   if test $exit_code -ne 0
     set_color red
@@ -7,6 +8,12 @@ function fish_right_prompt
     set_color green
   end
   printf '%d' $exit_code
+  if test $cmd_duration -ge 5000
+    set_color brcyan
+  else
+    set_color blue
+  end
+  printf ' < %s' (_convertsecs (math $cmd_duration / 1000))
   set_color 666666
   printf ' < %s' (date +%H:%M:%S)
   set_color normal
@@ -51,4 +58,8 @@ function _is_multiplexed
     set multiplexer "screen"
   end
   echo $multiplexer
+end
+
+function _convertsecs
+ printf "%02d:%02d:%02d\n" (math $argv[1] / 3600) (math (math $argv[1] \% 3600) / 60) (math $argv[1] \% 60)
 end
