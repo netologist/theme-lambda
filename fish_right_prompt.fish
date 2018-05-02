@@ -4,7 +4,7 @@ function fish_right_prompt
   if test $exit_code -ne 0
     set_color red
   else
-    set_color 666666
+    set_color green
   end
   printf '%d' $exit_code
   set_color 666666
