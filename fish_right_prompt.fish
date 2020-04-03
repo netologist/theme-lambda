@@ -13,7 +13,7 @@ function fish_right_prompt
   else
     set_color blue
   end
-  printf ' < %s' (_convertsecs (math $cmd_duration / 1000))
+  printf ' (%s)' (__print_duration $cmd_duration)
   set_color 666666
   printf ' < %s' (date +%H:%M:%S)
   set_color normal
@@ -60,6 +60,26 @@ function _is_multiplexed
   echo $multiplexer
 end
 
+function __print_duration
+  set -l duration $argv[1]
+ 
+  set -l millis  (math $duration % 1000)
+  set -l seconds (math -s0 $duration / 1000 % 60)
+  set -l minutes (math -s0 $duration / 60000 % 60)
+  set -l hours   (math -s0 $duration / 3600000 % 60)
+ 
+  if test $duration -lt 60000;
+    # Below a minute
+    printf "%d.%03ds\n" $seconds $millis
+  else if test $duration -lt 3600000;
+    # Below a hour
+    printf "%02d:%02d.%03d\n" $minutes $seconds $millis
+  else
+    # Everything else
+    printf "%02d:%02d:%02d.%03d\n" $hours $minutes $seconds $millis
+  end
+
 function _convertsecs
   printf "%02d:%02d:%02d\n" (math -s0 $argv[1] / 3600) (math -s0 (math $argv[1] \% 3600) / 60) (math -s0 $argv[1] \% 60)
 end
+
