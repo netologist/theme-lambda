@@ -78,6 +78,7 @@ function __print_duration
     # Everything else
     printf "%02d:%02d:%02d.%03d\n" $hours $minutes $seconds $millis
   end
+end
 
 function _convertsecs
   printf "%02d:%02d:%02d\n" (math -s0 $argv[1] / 3600) (math -s0 (math $argv[1] \% 3600) / 60) (math -s0 $argv[1] \% 60)
