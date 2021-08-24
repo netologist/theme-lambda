@@ -30,6 +30,7 @@ function fish_prompt
 #    hotpink="%F{red}"
 #    limegreen="%F{green}"
 #fi
+  set -l hostcolor (set_color (hostname | md5sum | cut -f1 -d' ' | tr -d '\n' | tail -c6))
   set -l normal (set_color normal)
   set -l white (set_color FFFFFF)
   set -l turquoise (set_color 5fdfff)
@@ -53,17 +54,17 @@ function fish_prompt
   set -l current_user (whoami)
 
   # Line 1
-  echo -n $white'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
+  echo -n $hostcolor'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
   __fish_git_prompt " (%s)"
   echo
 
   # Line 2
-  echo -n $white'╰'
+  echo -n $hostcolor'╰'
   # support for virtual env name
   if set -q VIRTUAL_ENV
       echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
   end
-  echo -n $white'─'$__fish_prompt_char $normal
+  echo -n $hostcolor'─'$white$__fish_prompt_char $normal
 end
 
 
