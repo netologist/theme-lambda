@@ -9,9 +9,9 @@ function fish_prompt
   if not set -q __fish_prompt_char
     switch (id -u)
       case 0
-	set -g __fish_prompt_char '#'
+        set -g __fish_prompt_char '#'
       case '*'
-	set -g __fish_prompt_char 'λ'
+        set -g __fish_prompt_char 'λ'
     end
   end
 
@@ -24,7 +24,7 @@ function fish_prompt
   set -l blue (set_color blue)
   set -l limegreen (set_color 87ff00)
   set -l purple (set_color af5fff)
- 
+
   # Configure __fish_git_prompt
   set -g __fish_git_prompt_char_stateseparator ' '
   set -g __fish_git_prompt_color 5fdfff
@@ -34,7 +34,7 @@ function fish_prompt
   set -g __fish_git_prompt_showdirtystate true
   set -g __fish_git_prompt_showuntrackedfiles true
   set -g __fish_git_prompt_showstashstate true
-  set -g __fish_git_prompt_show_informative_status true 
+  set -g __fish_git_prompt_show_informative_status true
 
   set -l current_user (whoami)
 
