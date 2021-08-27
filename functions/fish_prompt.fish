@@ -38,18 +38,60 @@ function fish_prompt
 
   set -l current_user (whoami)
 
+  ##
   # Line 1
+  ##
   echo -n $white'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
   __fish_git_prompt " (%s)"
   echo
 
-  # Line 2
+  ##
+  ## Line 2
+  ##
   echo -n $white'╰'
-  # support for virtual env name
+
+  ##
+  ## Support for virtual env name
+  ##
   if set -q VIRTUAL_ENV
-      echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
+    echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
   end
+
+  ##
+  ## Support for vi mode
+  ##
+  set -l lambdaViMode "$THEME_LAMBDA_VI_MODE"
+
+  # Do nothing if not in vi mode
+  if test "$fish_key_bindings" = fish_vi_key_bindings
+      or test "$fish_key_bindings" = fish_hybrid_key_bindings
+    if test -z (string match -ri '^no|false|0$' $lambdaViMode)
+      set_color --bold
+      echo -n $white'─['
+      switch $fish_bind_mode
+        case default
+          set_color red
+          echo -n 'n'
+        case insert
+          set_color green
+          echo -n 'i'
+        case replace_one
+          set_color green
+          echo -n 'r'
+        case replace
+          set_color cyan
+          echo -n 'r'
+        case visual
+          set_color magenta
+          echo -n 'v'
+      end
+      echo -n $white']'
+    end
+  end
+
+  ##
+  ## Rest of the prompt
+  ##
   echo -n $white'─'$__fish_prompt_char $normal
 end
-
 
