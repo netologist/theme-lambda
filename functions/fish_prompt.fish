@@ -4,7 +4,7 @@ function fish_prompt
 
   # Just calculate these once, to save a few cycles when displaying the prompt
   if not set -q __fish_prompt_hostname
-    set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
+    set -g __fish_prompt_hostname (uname -n|cut -d . -f 1)
   end
   if not set -q __fish_prompt_char
     switch (id -u)
@@ -16,6 +16,7 @@ function fish_prompt
   end
 
   # Setup colors
+  set -l hostcolor (set_color (hostname | md5sum | cut -f1 -d' ' | tr -d '\n' | tail -c6))
   set -l normal (set_color normal)
   set -l white (set_color FFFFFF)
   set -l turquoise (set_color 5fdfff)
@@ -41,18 +42,19 @@ function fish_prompt
   ##
   ## Line 1
   ##
-  echo -n $white'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
+  echo -n $hostcolor'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
   __fish_git_prompt " (%s)"
   echo
 
   ##
   ## Line 2
   ##
-  echo -n $white'╰'
+  echo -n $hostcolor'╰'
 
-  ##
-  ## Support for virtual env name
-  ##
+  # Disable virtualenv's default prompt
+  set -g VIRTUAL_ENV_DISABLE_PROMPT true
+
+  # support for virtual env name
   if set -q VIRTUAL_ENV
     echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
   end
@@ -92,6 +94,6 @@ function fish_prompt
   ##
   ## Rest of the prompt
   ##
-  echo -n $white'─'$__fish_prompt_char $normal
+  echo -n $hostcolor'─'$white$__fish_prompt_char $normal
 end
 
