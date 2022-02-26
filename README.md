@@ -14,6 +14,10 @@
 ###### Added VirtualEnv Support
 ![preview](https://i.imgur.com/fWurs47.png)
 
+###### Added Mode Indicator Support
+<p align="center">
+<img src="https://raw.githubusercontent.com/js402882/theme-lambda/master/screenshot-mode-indicator.png">
+</p>
 
 #### Install
 
@@ -43,6 +47,20 @@ plugins = [
   }
 ];
 ```
+
+
+##### Fish Mode Indicator Installation Note
+
+Disable default Fish mode indicator via
+
+```
+function fish_mode_prompt; end
+funcsave fish_mode_prompt
+```
+
+Details in https://fishshell.com/docs/current/cmds/fish_mode_prompt.html
+
+
 
 
 [Fisherman]: https://github.com/fisherman/fisherman

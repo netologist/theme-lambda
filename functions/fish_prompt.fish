@@ -9,27 +9,13 @@ function fish_prompt
   if not set -q __fish_prompt_char
     switch (id -u)
       case 0
-	set -g __fish_prompt_char '#'
+        set -g __fish_prompt_char '#'
       case '*'
-	set -g __fish_prompt_char 'λ'
+        set -g __fish_prompt_char 'λ'
     end
   end
 
   # Setup colors
-  #use extended color pallete if available
-#if [[ $terminfo[colors] -ge 256 ]]; then
-#    turquoise="%F{81}"
-#    orange="%F{166}"
-#    purple="%F{135}"
-#    hotpink="%F{161}"
-#    limegreen="%F{118}"
-#else
-#    turquoise="%F{cyan}"
-#    orange="%F{yellow}"
-#    purple="%F{magenta}"
-#    hotpink="%F{red}"
-#    limegreen="%F{green}"
-#fi
   set -l hostcolor (set_color (hostname | md5sum | cut -f1 -d' ' | tr -d '\n' | tail -c6))
   set -l normal (set_color normal)
   set -l white (set_color FFFFFF)
@@ -39,7 +25,7 @@ function fish_prompt
   set -l blue (set_color blue)
   set -l limegreen (set_color 87ff00)
   set -l purple (set_color af5fff)
- 
+
   # Configure __fish_git_prompt
   set -g __fish_git_prompt_char_stateseparator ' '
   set -g __fish_git_prompt_color 5fdfff
@@ -49,16 +35,20 @@ function fish_prompt
   set -g __fish_git_prompt_showdirtystate true
   set -g __fish_git_prompt_showuntrackedfiles true
   set -g __fish_git_prompt_showstashstate true
-  set -g __fish_git_prompt_show_informative_status true 
+  set -g __fish_git_prompt_show_informative_status true
 
   set -l current_user (whoami)
 
-  # Line 1
+  ##
+  ## Line 1
+  ##
   echo -n $hostcolor'╭─'$hotpink$current_user$white' at '$orange$__fish_prompt_hostname$white' in '$limegreen(pwd|sed "s=$HOME=⌁=")$turquoise
   __fish_git_prompt " (%s)"
   echo
 
-  # Line 2
+  ##
+  ## Line 2
+  ##
   echo -n $hostcolor'╰'
 
   # Disable virtualenv's default prompt
@@ -66,9 +56,44 @@ function fish_prompt
 
   # support for virtual env name
   if set -q VIRTUAL_ENV
-      echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
+    echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
   end
+
+  ##
+  ## Support for vi mode
+  ##
+  set -l lambdaViMode "$THEME_LAMBDA_VI_MODE"
+
+  # Do nothing if not in vi mode
+  if test "$fish_key_bindings" = fish_vi_key_bindings
+      or test "$fish_key_bindings" = fish_hybrid_key_bindings
+    if test -z (string match -ri '^no|false|0$' $lambdaViMode)
+      set_color --bold
+      echo -n $white'─['
+      switch $fish_bind_mode
+        case default
+          set_color red
+          echo -n 'n'
+        case insert
+          set_color green
+          echo -n 'i'
+        case replace_one
+          set_color green
+          echo -n 'r'
+        case replace
+          set_color cyan
+          echo -n 'r'
+        case visual
+          set_color magenta
+          echo -n 'v'
+      end
+      echo -n $white']'
+    end
+  end
+
+  ##
+  ## Rest of the prompt
+  ##
   echo -n $hostcolor'─'$white$__fish_prompt_char $normal
 end
-
 
