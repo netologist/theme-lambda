@@ -59,6 +59,10 @@ function fish_prompt
 
   # Line 2
   echo -n $white'╰'
+
+  # Disable virtualenv's default prompt
+  set -g VIRTUAL_ENV_DISABLE_PROMPT true
+
   # support for virtual env name
   if set -q VIRTUAL_ENV
       echo -n "($turquoise"(basename "$VIRTUAL_ENV")"$white)"
