@@ -27,6 +27,7 @@ function __tmux_prompt
       set pane (_get_screen_window)
     case tmux
       set pane (_get_tmux_window)
+      set pane (string replace -ra '#\[[bf]g=[^\]]+\]' '' $pane)
    end
 
   set_color 666666
